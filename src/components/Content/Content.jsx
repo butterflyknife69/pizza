@@ -13,15 +13,16 @@ const Content = (props) => {
                 </div>
                 <h2 className="content__title">Все пиццы</h2>
                 <div className="content__items">
-                    <PizzaBlock title={'Мексиканська'} price={200}/>
-                    <PizzaBlock title={'Чілі'} price={400}/>
-                    <PizzaBlock title={'Гавайська'} price={350}/>
-                    <PizzaBlock title={'Мясна'} price={500}/>
-                    <PizzaBlock />
-                    <PizzaBlock />
-                    <PizzaBlock />
-                    <PizzaBlock />
-                    <PizzaBlock />
+                {
+                 props.pizzas
+                 .map(p=> <PizzaBlock 
+                    title={p.title} 
+                    price={p.price} 
+                    imageUrl={p.imageUrl}
+                    sizes={p.sizes}/>
+                    
+                 )
+                 }
                 </div>
             </div>
         </div>
