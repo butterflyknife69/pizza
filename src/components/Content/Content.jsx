@@ -15,12 +15,7 @@ const Content = (props) => {
                 <div className="content__items">
                 {
                  props.pizzas
-                 .map(p=> <PizzaBlock 
-                    title={p.title} 
-                    price={p.price} 
-                    imageUrl={p.imageUrl}
-                    sizes={p.sizes}/>
-                    
+                 .map(p=> <PizzaBlock {...p}/>
                  )
                  }
                 </div>
