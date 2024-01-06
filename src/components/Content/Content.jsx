@@ -8,14 +8,14 @@ const Content = (props) => {
         <div className="content">
             <div className="container">
                 <div className="content__top">
-                    <Category />
+                    {/* <Category /> */}
                     <Sort />
                 </div>
                 <h2 className="content__title">Все пиццы</h2>
                 <div className="content__items">
                 {
                  props.pizzas
-                 .map(p=> <PizzaBlock {...p}/>
+                 .map(p=> <PizzaBlock key={p.id} {...p}/>
                  )
                  }
                 </div>
