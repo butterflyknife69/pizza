@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Sort = (props) => {
-    const[]=React.useState()
+    const [open, setOpen] = React.useState(false)
     return (
         <div className="sort">
             <div className="sort__label">
@@ -20,13 +20,17 @@ const Sort = (props) => {
                 <b>Сортировка по:</b>
                 <span>популярности</span>
             </div>
-            <div className="sort__popup">
-                <ul>
-                    <li className="active">популярности</li>
-                    <li>цене</li>
-                    <li>алфавиту</li>
-                </ul>
-            </div>
+            {
+                open && (
+                    <div className="sort__popup">
+                        <ul>
+                            <li className="active">популярности</li>
+                            <li>цене</li>
+                            <li>алфавиту</li>
+                        </ul>
+                    </div>
+                )
+            }
         </div>
     )
 }
