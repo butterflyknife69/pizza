@@ -1,5 +1,6 @@
 import Category from "./Category/Category";
 import PizzaBlock from "./PizzaBlock/PizzaBlock";
+import Skeleton from "./PizzaBlock/Skeleton";
 import Sort from "./Sort/Sort";
 
 
@@ -8,14 +9,14 @@ const Content = (props) => {
         <div className="content">
             <div className="container">
                 <div className="content__top">
-                    {/* <Category /> */}
+                    <Category />
                     <Sort />
                 </div>
                 <h2 className="content__title">Все пиццы</h2>
                 <div className="content__items">
                 {
                  props.items
-                 .map(p=> <PizzaBlock key={p.id} {...p}/>
+                 .map(p=> <Skeleton key={p.id} {...p}/>
                  )
                  }
                 </div>
