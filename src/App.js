@@ -2,28 +2,20 @@ import React from "react";
 import './scss/app.scss'
 import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";
-import pizzas from './assets/pizzas.json'
-
-
-
 
 function App() {
+  const [items, setItems] = React.useState([])
 
-  fetch('https://659c37a4d565feee2dacac9d.mockapi.io/items')
-  .then((res)=>{
-    return res.json()
-    })
-    .then(json =>{
-    console.log(json);
-  })
-
-
-
+  React.useEffect(() => {
+    fetch('https://659c37a4d565feee2dacac9d.mockapi.io/items')
+      .then(res => res.json())
+      .then(json => setItems(json))
+  }, [])
 
   return (
     <div className="wrapper">
       <Header />
-      <Content pizzas={pizzas}/>
+      <Content items={items} />
     </div>
   );
 }

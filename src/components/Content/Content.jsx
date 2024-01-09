@@ -14,7 +14,7 @@ const Content = (props) => {
                 <h2 className="content__title">Все пиццы</h2>
                 <div className="content__items">
                 {
-                 props.pizzas
+                 props.items
                  .map(p=> <PizzaBlock key={p.id} {...p}/>
                  )
                  }
