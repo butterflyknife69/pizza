@@ -16,11 +16,11 @@ const Content = () => {
                 setItems(json)
                 setIdLoading(false)
             })
-
+        window.scrollTo(0, 0)
     }, [])
 
     return (
-        <>
+        <div className="container">
             <div className="content__top">
                 <Category />
                 <Sort />
@@ -33,7 +33,7 @@ const Content = () => {
                         : items.map(p => <PizzaBlock key={p.id} {...p} />)
                 }
             </div>
-        </>
+        </div>
     )
 }
 
