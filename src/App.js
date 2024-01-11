@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";
 import NotFound from "./components/NotFoundBlock/NotFound";
 import { Route, Routes } from "react-router-dom";
+import Cart from "./components/Cart/Cart";
 
 
 
