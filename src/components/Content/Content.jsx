@@ -12,16 +12,7 @@ const Content = () => {
   const [sortType, setSortType] = React.useState(0)
 
 
-  // React.useEffect(() => {
-  //   setIdLoading(true)
-  //   fetch('https://659c37a4d565feee2dacac9d.mockapi.io/items?category=' + categoryId)
-  //     .then(res => res.json())
-  //     .then(json => {
-  //       setItems(json)
-  //       setIdLoading(false)
-  //     })
-  //   window.scrollTo(0, 0)
-  // }, [categoryId])
+
   React.useEffect(() => {
     setIdLoading(true);
     fetch('https://659c37a4d565feee2dacac9d.mockapi.io/items?category=' + categoryId)
@@ -30,17 +21,22 @@ const Content = () => {
         const receivedItems = Array.isArray(data) ? data : [];
         setItems(receivedItems);
         setIdLoading(false);
+      })
+      .catch(error => {
+        console.error("Помилка отримання даних:", error);
+        setIdLoading(false); // Переконайтеся, що стан загрузки скидається навіть у випадку помилки
       });
-    window.scrollTo(0, 0);
-  }, [categoryId]);
 
-console.log('isLoading',isLoading);
+    window.scrollTo(0, 0);
+  }, [categoryId, sortType])
+
+
 
   return (
     <div className="container">
       <div className="content__top">
         <Category value={categoryId} onClickCategory={(i) => setCategoryId(i)} />
-        <Sort />
+        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
