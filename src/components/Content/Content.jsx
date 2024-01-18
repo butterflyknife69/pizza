@@ -82,7 +82,10 @@ const Content = ({ searchValue }) => {
   }, [categoryId, sortType]);
 
   const pizzas = items.filter(obj =>{
-    return
+    if(obj.title.toLowerCase().includes(searchValue.toLowerCase())){
+      return true
+    }
+    return false
   }).map((obj) => <PizzaBlock key={obj.id} {...obj} />)
   const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />)
 
