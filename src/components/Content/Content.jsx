@@ -3,6 +3,8 @@ import Category from "./Category/Category";
 import PizzaBlock from "./PizzaBlock/PizzaBlock";
 import Skeleton from "./PizzaBlock/Skeleton";
 import Sort from "./Sort/Sort";
+import Pagination from "../../Pagination/Pagination";
+
 
 const Content = ({ searchValue }) => {
   const [items, setItems] = React.useState([]);
@@ -53,6 +55,7 @@ const Content = ({ searchValue }) => {
         {isLoading
           ? skeletons : pizzas}
       </div>
+      <Pagination/>
     </div>
   );
 };

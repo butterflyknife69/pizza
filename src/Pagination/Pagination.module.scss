@@ -1,1 +1,53 @@
+.root {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
 
+.page {
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #e0e0e0;
+    }
+
+    &.break {
+        cursor: default;
+    }
+
+    &.active {
+        background-color: #2196f3;
+        color: #fff;
+    }
+
+    &.disabled {
+        cursor: default;
+        color: #ccc;
+    }
+}
+
+.next,
+.previous {
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #e0e0e0;
+    }
+
+    &.disabled {
+        cursor: default;
+        color: #ccc;
+    }
+}
