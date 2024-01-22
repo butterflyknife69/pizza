@@ -10,6 +10,7 @@ const Content = ({ searchValue }) => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIdLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(1);
   const [sortType, setSortType] = React.useState({
     name: 'популярности', sortProperty: 'rating'
   });
@@ -21,7 +22,7 @@ const Content = ({ searchValue }) => {
     const category = categoryId > 0 ? `category=${categoryId}` : ''
     const search = searchValue ? `&search=${searchValue}` : ''
 
-    fetch(`https://659c37a4d565feee2dacac9d.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search} `,)
+    fetch(`https://659c37a4d565feee2dacac9d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search} `,)
       .then((res) => res.json())
       .then((data) => {
         const receivedItems = Array.isArray(data) ? data : [];
@@ -34,7 +35,7 @@ const Content = ({ searchValue }) => {
       });
 
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, searchValue]);
+  }, [categoryId, sortType, searchValue,currentPage]);
 
   const pizzas = items.filter(obj => {
     if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
@@ -55,7 +56,7 @@ const Content = ({ searchValue }) => {
         {isLoading
           ? skeletons : pizzas}
       </div>
-      <Pagination/>
+      <Pagination onChangePage={number=>setCurrentPage(number)}/>
     </div>
   );
 };
