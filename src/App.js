@@ -7,6 +7,8 @@ import { Route, Routes } from "react-router-dom";
 import Cart from "./components/Cart/Cart";
 
 
+const SearchContext=React.createContext('')
+
 
 function App() {
 const [searchValue,setSearchValue]=React.useState('')
