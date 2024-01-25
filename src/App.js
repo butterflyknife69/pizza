@@ -7,7 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import Cart from "./components/Cart/Cart";
 
 
-const SearchContext=React.createContext('')
+export const SearchContext=React.createContext()
 
 
 function App() {
@@ -15,7 +15,8 @@ const [searchValue,setSearchValue]=React.useState('')
 
   return (
     <div className="wrapper">
-      <Header searchValue={searchValue} setSearchValue={setSearchValue} />
+      <SearchContext.Provider value={{searchValue,setSearchValue}}>
+      <Header />
       <div className="content">
        
           <Routes>
@@ -25,6 +26,7 @@ const [searchValue,setSearchValue]=React.useState('')
           </Routes>
        
       </div>
+      </SearchContext.Provider>
     </div>
   );
 }
