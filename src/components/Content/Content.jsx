@@ -4,9 +4,11 @@ import PizzaBlock from "./PizzaBlock/PizzaBlock";
 import Skeleton from "./PizzaBlock/Skeleton";
 import Sort from "./Sort/Sort";
 import Pagination from "../../Pagination/Pagination";
+import { SearchContext } from "../../App";
 
 
-const Content = ({ searchValue }) => {
+const Content = () => {
+  const {searchValue}=React.useContext(SearchContext)
   const [items, setItems] = React.useState([]);
   const [isLoading, setIdLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);

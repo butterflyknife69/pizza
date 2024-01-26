@@ -20,7 +20,7 @@ const [searchValue,setSearchValue]=React.useState('')
       <div className="content">
        
           <Routes>
-            <Route path="/" element={<Content searchValue={searchValue} />} />
+            <Route path="/" element={<Content />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
