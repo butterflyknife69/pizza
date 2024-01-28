@@ -12,24 +12,20 @@ import { setCategoryId } from "../../redux/slices/filterSlice";
 const Content = () => {
 
   const dispatch = useDispatch()
-  const categoryId = useSelector(state => state.filter.categoryId)
-
+  const { categoryId, sort } = useSelector(state => state.filter)
+  const sortType = sort.sortProperty
   const { searchValue } = React.useContext(SearchContext)
   const [items, setItems] = React.useState([]);
   const [isLoading, setIdLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [sortType, setSortType] = React.useState({
-    name: 'популярности', sortProperty: 'rating'
-  });
-
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id))
   }
 
   React.useEffect(() => {
     setIdLoading(true);
-    const sortBy = sortType.sortProperty.replace('-', '')
-    const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc'
+    const sortBy = sortType.replace('-', '')
+    const order = sortType.includes('-') ? 'asc' : 'desc'
     const category = categoryId > 0 ? `category=${categoryId}` : ''
     const search = searchValue ? `&search=${searchValue}` : ''
 
@@ -60,7 +56,7 @@ const Content = () => {
     <div className="container">
       <div className="content__top">
         <Category value={categoryId} onClickCategory={onClickCategory} />
-        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
