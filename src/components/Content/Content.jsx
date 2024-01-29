@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import Category from "./Category/Category";
 import PizzaBlock from "./PizzaBlock/PizzaBlock";
 import Skeleton from "./PizzaBlock/Skeleton";
@@ -16,29 +17,26 @@ const Content = () => {
   const sortType = sort.sortProperty
   const { searchValue } = React.useContext(SearchContext)
   const [items, setItems] = React.useState([]);
-  const [isLoading, setIdLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id))
   }
 
   React.useEffect(() => {
-    setIdLoading(true);
+    setIsLoading(true);
     const sortBy = sortType.replace('-', '')
     const order = sortType.includes('-') ? 'asc' : 'desc'
     const category = categoryId > 0 ? `category=${categoryId}` : ''
     const search = searchValue ? `&search=${searchValue}` : ''
 
-    fetch(`https://659c37a4d565feee2dacac9d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search} `,)
-      .then((res) => res.json())
-      .then((data) => {
-        const receivedItems = Array.isArray(data) ? data : [];
-        setItems(receivedItems);
-        setIdLoading(false);
+    axios.get(`https://659c37a4d565feee2dacac9d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+      .then(res => {
+        setItems(res.data)
+        setIsLoading(false)
       })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setIdLoading(false);
+      .catch(error => {
+        console.error('Помилка запиту:', error);
       });
 
     window.scrollTo(0, 0);
