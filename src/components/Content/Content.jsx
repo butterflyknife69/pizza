@@ -30,14 +30,14 @@ const Content = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : ''
     const search = searchValue ? `&search=${searchValue}` : ''
 
-    axios.get(`https://659c37a4d565feee2dacac9d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
-      .then(res => {
-        setItems(res.data)
-        setIsLoading(false)
-      })
-      .catch(error => {
-        console.error('Помилка запиту:', error);
-      });
+    // axios.get(`https://659c37a4d565feee2dacac9d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+    //   .then(res => {
+    //     setItems(res.data)
+    //     setIsLoading(false)
+    //   })
+    //   .catch(error => {
+    //     console.error('Помилка запиту:', error);
+    //   });
 
     window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
