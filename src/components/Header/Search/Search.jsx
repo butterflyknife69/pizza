@@ -3,22 +3,29 @@ import s from './Search.module.scss'
 import { SearchContext } from '../../../App'
 import debounce from 'lodash.debounce'
 
-const testDebounce = debounce(() => {
-  console.log('hello');
-}, 850)
 
 
 const Search = () => {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext)
+  const [value, setValue] = React.useState('')
+
+  const { setSearchValue } = React.useContext(SearchContext)
   const inputRef = React.useRef()
+
   const onClickClear = () => {
     setSearchValue('')
+    setValue('')
     inputRef.current.focus()
   }
+
+  const updateSearchValue = React.useCallback(
+    debounce(str => setSearchValue(str), 250), []
+  )
+
   const onChangeInput = (event) => {
-    setSearchValue(event.target.value)
-    testDebounce()
+    setValue(event.target.value)
+    updateSearchValue(event.target.value)
   }
+
   return (
     <div className={s.root} >
       <svg className={s.icon} viewBox="0 0 24 24">
@@ -31,11 +38,11 @@ const Search = () => {
           6.2267316 4 9 4 z"/></svg>
       <input
         ref={inputRef}
-        value={searchValue}
+        value={value}
         onChange={onChangeInput}
         className={s.input}
         placeholder='Поиск пиц' />
-      {searchValue && (
+      {value && (
         <svg onClick={onClickClear} className={s.clearIcon} viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" fill="#000000" /></svg>
       )}
     </div>
