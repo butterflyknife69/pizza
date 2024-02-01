@@ -7,22 +7,23 @@ import Sort from "./Sort/Sort";
 import Pagination from "../../Pagination/Pagination";
 import { SearchContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryId } from "../../redux/slices/filterSlice";
+import { setCategoryId, setCurentPage } from "../../redux/slices/filterSlice";
 
 
 const Content = () => {
 
   const dispatch = useDispatch()
-  const { categoryId, sort } = useSelector(state => state.filter)
+  const { categoryId, sort,currentPage } = useSelector(state => state.filter)
   const sortType = sort.sortProperty
   const { searchValue } = React.useContext(SearchContext)
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [currentPage, setCurrentPage] = React.useState(1);
+
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id))
   }
-
+  const onChangePage=number=>{dispatch(setCurentPage(number))}
+  
   React.useEffect(() => {
     setIsLoading(true);
     const sortBy = sortType.replace('-', '')
@@ -61,7 +62,7 @@ const Content = () => {
         {isLoading
           ? skeletons : pizzas}
       </div>
-      <Pagination onChangePage={number => setCurrentPage(number)} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
 };
