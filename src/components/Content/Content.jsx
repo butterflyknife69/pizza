@@ -1,19 +1,20 @@
 import React from "react";
+import qs from 'qs'
 import axios from "axios";
 import Category from "./Category/Category";
 import PizzaBlock from "./PizzaBlock/PizzaBlock";
 import Skeleton from "./PizzaBlock/Skeleton";
-import Sort from "./Sort/Sort";
+import Sort, { sortList } from "./Sort/Sort";
 import Pagination from "../../Pagination/Pagination";
 import { SearchContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryId, setCurentPage } from "../../redux/slices/filterSlice";
-
+import { setCategoryId, setCurentPage, setFilters } from "../../redux/slices/filterSlice";
+import { useNavigate } from "react-router-dom";
 
 const Content = () => {
-
+  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { categoryId, sort,currentPage } = useSelector(state => state.filter)
+  const { categoryId, sort, currentPage } = useSelector(state => state.filter)
   const sortType = sort.sortProperty
   const { searchValue } = React.useContext(SearchContext)
   const [items, setItems] = React.useState([]);
@@ -22,8 +23,22 @@ const Content = () => {
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id))
   }
-  const onChangePage=number=>{dispatch(setCurentPage(number))}
-  
+  const onChangePage = number => { dispatch(setCurentPage(number)) }
+
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1))
+
+      const sort = sortList.find(obj => obj.sortType === params.sortType)
+      dispatch(
+        setFilters({
+          ...params,
+          sort
+        })
+      )
+    }
+  }, [])
+
   React.useEffect(() => {
     setIsLoading(true);
     const sortBy = sortType.replace('-', '')
@@ -42,6 +57,16 @@ const Content = () => {
 
     window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
+
+
+  React.useEffect(() => {
+    const queryString = qs.stringify({
+      sortType: sortType,
+      categoryId,
+      currentPage
+    })
+    navigate(`?${queryString}`)
+  }, [categoryId, sortType, searchValue, currentPage])
 
   const pizzas = items.filter(obj => {
     if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
