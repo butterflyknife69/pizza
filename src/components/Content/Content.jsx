@@ -14,8 +14,9 @@ import { useNavigate } from "react-router-dom";
 const Content = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const isSearch = React.useRef(false)
   const { categoryId, sort, currentPage } = useSelector(state => state.filter)
-  const sortType = sort.sortProperty
+  const sortType = sort ? sort.sortProperty : ''; // Add null check here
   const { searchValue } = React.useContext(SearchContext)
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -25,26 +26,12 @@ const Content = () => {
   }
   const onChangePage = number => { dispatch(setCurentPage(number)) }
 
-  React.useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1))
-
-      const sort = sortList.find(obj => obj.sortType === params.sortType)
-      dispatch(
-        setFilters({
-          ...params,
-          sort
-        })
-      )
-    }
-  }, [])
-
-  React.useEffect(() => {
+  const fetchPizzas = () => {
     setIsLoading(true);
-    const sortBy = sortType.replace('-', '')
-    const order = sortType.includes('-') ? 'asc' : 'desc'
-    const category = categoryId > 0 ? `category=${categoryId}` : ''
-    const search = searchValue ? `&search=${searchValue}` : ''
+    const sortBy = sortType ? sortType.replace('-', '') : '';
+    const order = sortType && sortType.includes('-') ? 'asc' : 'desc';
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const search = searchValue ? `&search=${searchValue}` : '';
 
     axios.get(`https://659c37a4d565feee2dacac9d.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
       .then(res => {
@@ -54,10 +41,30 @@ const Content = () => {
       .catch(error => {
         console.error('Помилка запиту:', error);
       });
+  }
 
-    window.scrollTo(0, 0);
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1))
+
+      const sort = sortList.find(obj => obj.sortType === params.sortType);
+      dispatch(
+        setFilters({
+          ...params,
+          sort: sort || {}, 
+        })
+      );
+      isSearch.current = true;
+    }
+  }, []);
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+    if (!isSearch.current) {
+      fetchPizzas()
+    }
+    isSearch.current = false
   }, [categoryId, sortType, searchValue, currentPage]);
-
 
   React.useEffect(() => {
     const queryString = qs.stringify({
