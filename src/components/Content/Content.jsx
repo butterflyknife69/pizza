@@ -15,6 +15,8 @@ const Content = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const isSearch = React.useRef(false)
+
+  const isMounted = React.useRef(false)
   const { categoryId, sort, currentPage } = useSelector(state => state.filter)
   const sortType = sort ? sort.sortProperty : ''; // Add null check here
   const { searchValue } = React.useContext(SearchContext)
@@ -51,7 +53,7 @@ const Content = () => {
       dispatch(
         setFilters({
           ...params,
-          sort: sort || {}, 
+          sort: sort || {},
         })
       );
       isSearch.current = true;
@@ -67,12 +69,15 @@ const Content = () => {
   }, [categoryId, sortType, searchValue, currentPage]);
 
   React.useEffect(() => {
-    const queryString = qs.stringify({
-      sortType: sortType,
-      categoryId,
-      currentPage
-    })
-    navigate(`?${queryString}`)
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortType: sortType,
+        categoryId,
+        currentPage
+      })
+      navigate(`?${queryString}`)
+    }
+    isMounted.current=true
   }, [categoryId, sortType, searchValue, currentPage])
 
   const pizzas = items.filter(obj => {
