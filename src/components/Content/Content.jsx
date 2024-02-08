@@ -15,7 +15,6 @@ const Content = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const isSearch = React.useRef(false)
-
   const isMounted = React.useRef(false)
   const { categoryId, sort, currentPage } = useSelector(state => state.filter)
   const sortType = sort ? sort.sortProperty : ''; // Add null check here
@@ -27,7 +26,6 @@ const Content = () => {
     dispatch(setCategoryId(id))
   }
   const onChangePage = number => { dispatch(setCurentPage(number)) }
-
   const fetchPizzas = () => {
     setIsLoading(true);
     const sortBy = sortType ? sortType.replace('-', '') : '';
