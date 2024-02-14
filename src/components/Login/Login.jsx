@@ -1,9 +1,45 @@
-import React, { memo } from 'react'
+import React, { useState } from 'react';
 
-const Login = () => {
+const AuthForm = ({ isLogin }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Тут можна виконати логіку реєстрації або авторизації
+    console.log('Email:', email);
+    console.log('Password:', password);
+    // Очищаємо поля після відправки форми
+    setEmail('');
+    setPassword('');
+  };
+
   return (
-    <div>Login</div>
-  )
-}
+    <div>
+      <h2>{isLogin ? 'Увійти' : 'Зареєструватися'}</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">{isLogin ? 'Увійти' : 'Зареєструватися'}</button>
+      </form>
+    </div>
+  );
+};
 
-export default Login
+export default AuthForm;
