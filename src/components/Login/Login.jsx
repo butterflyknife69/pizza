@@ -6,10 +6,8 @@ const AuthForm = ({ isLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Тут можна виконати логіку реєстрації або авторизації
     console.log('Email:', email);
     console.log('Password:', password);
-    // Очищаємо поля після відправки форми
     setEmail('');
     setPassword('');
   };
