@@ -1,9 +1,15 @@
-import React, { memo } from 'react'
+import React from 'react';
 
-const Loader = memo(() => {
+const Loader = ({ isLoading }) => {
+  if (!isLoading) {
+    return null; 
+  }
+
   return (
-    <div>Loader</div>
-  )
-})
+    <div className="loader-container">
+      <div className="loader"></div>
+    </div>
+  );
+};
 
-export default Loader
+export default Loader;
