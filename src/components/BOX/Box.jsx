@@ -1,9 +1,12 @@
-import React, { memo } from 'react'
+import React from 'react';
 
-const Box = memo(() => {
+const Box = ({ title, content }) => {
   return (
-    <div>Box</div>
-  )
-})
+    <div className="box">
+      <h2>{title}</h2>
+      <p>{content}</p>
+    </div>
+  );
+};
 
-export default Box
+export default Box;
