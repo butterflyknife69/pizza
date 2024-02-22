@@ -1,13 +1,10 @@
 import React from 'react';
 
 const Footer = () => {
-  // Отримуємо поточний рік для відображення у футері
   const currentYear = new Date().getFullYear();
 
-  // Функція для обробки кліків по посиланням у футері
   const handleLinkClick = (event, link) => {
     event.preventDefault();
-    // Тут можна реалізувати логіку для переходу на інші сторінки або ресурси
     console.log(`Navigating to ${link}`);
   };
 
@@ -33,6 +30,26 @@ const Footer = () => {
           </li>
         </ul>
       </nav>
+      <div>
+        Follow us:
+        <a href="https://twitter.com/mywebsite" target="_blank" rel="noopener noreferrer">
+          Twitter
+        </a>
+        <a href="https://www.facebook.com/mywebsite" target="_blank" rel="noopener noreferrer">
+          Facebook
+        </a>
+        <a href="https://www.instagram.com/mywebsite" target="_blank" rel="noopener noreferrer">
+          Instagram
+        </a>
+      </div>
+      <div>
+        <a href="/privacy-policy" onClick={(e) => handleLinkClick(e, '/privacy-policy')}>
+          Privacy Policy
+        </a>
+        <a href="/terms-of-service" onClick={(e) => handleLinkClick(e, '/terms-of-service')}>
+          Terms of Service
+        </a>
+      </div>
     </footer>
   );
 };
