@@ -50,6 +50,12 @@ const Footer = () => {
           Terms of Service
         </a>
       </div>
+      <div>
+        <p>Contact Information:</p>
+        <p>Email: contact@mywebsite.com</p>
+        <p>Phone: +1234567890</p>
+        <p>Address: 123 Main Street, City, Country</p>
+      </div>
     </footer>
   );
 };
